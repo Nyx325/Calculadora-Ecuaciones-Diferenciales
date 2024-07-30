@@ -37,6 +37,7 @@ fn calcular(func: &str, x0: &str, y0: &str, h: &str, x_final: &str) -> Result<Ca
     )
 }
 
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![calcular])
