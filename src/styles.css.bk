@@ -3,19 +3,20 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f0f0f0;
-  height: 100vh;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 main {
-  width: 100%;
-  max-width: none;
+  width: 90%;
+  max-width: 800px;
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin: 20px auto; /* Margen automático para centrado vertical */
+  margin: auto;
 }
 
 fieldset {
@@ -108,3 +109,4 @@ th {
 .show {
   display: block;
 }
+
