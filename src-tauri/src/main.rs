@@ -13,7 +13,7 @@ pub struct CalculationResult {
 }
 
 #[tauri::command]
-fn calcular(func: &str, x0: &str, y0: &str, h: &str, x_final: &str) -> Result<CalculationResult, String> {
+fn calcular(func: &str, x0: &str, y0: &str, h: &str, x_final: &str) -> Result<String, String> {
     let func = match Function::new(&func) {
         Ok(func) => func,
         Err(_) => return Err("Función no válida".to_string()),
@@ -28,6 +28,7 @@ fn calcular(func: &str, x0: &str, y0: &str, h: &str, x_final: &str) -> Result<Ca
     let euler_mejorado_result = Metodos::euler_mejorado(&func, &x0, &y0, &h, &x_final).map_err(|e| e.to_string())?;
     let runge_kutta_result = Metodos::runger_kutta4(&func, &x0, &y0, &h, &x_final).map_err(|e| e.to_string())?;
 
+    /*
     Ok(
         CalculationResult {
             euler: Some(euler_result),
@@ -35,9 +36,24 @@ fn calcular(func: &str, x0: &str, y0: &str, h: &str, x_final: &str) -> Result<Ca
             runge_kutta: Some(runge_kutta_result),
         }
     )
+     */
+    let mut json = String::new();
+    json.push_str("{\"euler\":");
+    json.push_str(&euler_result);
+    json.push_str(",\n");
+
+    json.push_str("\"euler_mejorado\":");
+    json.push_str(&euler_mejorado_result);
+    json.push_str(",\n");
+
+    json.push_str("\"rk4\":");
+    json.push_str(&runge_kutta_result);
+    json.push_str("\n}");
+
+    Ok(json)
 }
 
-#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+#[cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![calcular])

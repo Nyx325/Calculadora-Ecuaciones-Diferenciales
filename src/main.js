@@ -16,32 +16,45 @@ window.calcularButton.addEventListener('click', async () => {
         //Bug raro que me solicita si o si un atributo xFinal para la funcion que sinceramente
         //no tengo idea de dónde sale, pero si no no jala xd
     const result = await invoke('calcular', { func, x0, y0, h, x_final, xFinal: x_final });
-
+    const json = JSON.parse(result);
+    
+    
     // Limpiar resultados anteriores
     window.error.textContent = '';
     window.eulerOutput.innerHTML = '';
     window.eulerMejoradoOutput.innerHTML = '';
     window.rungeKuttaOutput.innerHTML = '';
 
-    if (result.error) {
-      window.error.textContent = `Error: ${result.error}`;
-    } else {
-      if (result.euler) {
-        window.eulerOutput.innerHTML = generateTable(result.euler, 'Método de Euler');
-      }
-      if (result.euler_mejorado) {
-        window.eulerMejoradoOutput.innerHTML = generateTable(result.euler_mejorado, 'Método de Euler Mejorado');
-      }
-      if (result.runge_kutta) {
-        window.rungeKuttaOutput.innerHTML = generateTable(result.runge_kutta, 'Método de Runge-Kutta');
-      }
-    }
+    window.eulerOutput.innerHTML = generateTable(json.euler, ["x", "y"], "Método Euler");
+    window.eulerMejoradoOutput.innerHTML = generateTable(json.euler_mejorado, ["x", "y", "y_star"], "Método Euler Mejorado");
+    window.rungeKuttaOutput.innerHTML = generateTable(json.rk4, ["x", "y", "k1", "k2", "k3", "k4"], "Método RK4");
+
   } catch (error) {
     console.error('Error al invocar el comando:', error);
     window.error.textContent = `Error: ${error.message}`;
   }
 });
 
+function generateTable(data, headers, title){
+  let table = `<h3>${title}</h3><table border="1" cellpadding="5" cellspacing="0"><thead><tr>`;
+  headers.forEach(header => {
+    table += `<th>${header}</th>`;
+  });
+  table += `</tr></thead><tbody>`;
+
+  data.forEach(item => {
+    table += `<tr>`;
+    headers.forEach(header => {
+      table += `<td>${item[header]}</td>`;
+    });
+    table += `</tr>`;
+  });
+
+  table += `</tbody></table>`;
+  return table;
+}
+
+/*
 // Función para generar una tabla a partir de los datos
 function generateTable(data, title) {
   let tableHtml = `<h3>${title}</h3><table border="1" cellpadding="5" cellspacing="0"><thead><tr>`;
@@ -64,4 +77,4 @@ function generateTable(data, title) {
   tableHtml += `</tbody></table>`;
   return tableHtml;
 }
-
+*/
