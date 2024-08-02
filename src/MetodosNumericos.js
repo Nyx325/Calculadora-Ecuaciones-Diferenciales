@@ -16,7 +16,7 @@ window.calcularButton.addEventListener('click', async () => {
   try {
         //Bug raro que me solicita si o si un atributo xFinal para la funcion que sinceramente
         //no tengo idea de dónde sale, pero si no no jala xd
-    const result = await invoke('calcular', { func, x0, y0, h, x_final, xFinal: x_final, derivada });
+    const result = await invoke('calcular', { func, x0, y0, h, x_final, xFinal: x_final});
     const json = JSON.parse(result);
     
     
@@ -46,7 +46,7 @@ function generateTable(data, headers, title){
   data.forEach(item => {
     table += `<tr>`;
     headers.forEach(header => {
-      table += `<td>${item[header]}</td>`;
+      table += `<td>${item[header].toFixed(4)}</td>`;
     });
     table += `</tr>`;
   });

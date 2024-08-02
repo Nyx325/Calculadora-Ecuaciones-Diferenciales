@@ -13,7 +13,7 @@ pub struct CalculationResult {
 }
 
 #[tauri::command]
-fn calcular(func: &str, x0: &str, y0: &str, h: &str, x_final: &str, derivada: &str) -> Result<String, String> {
+fn calcular(func: &str, x0: &str, y0: &str, h: &str, x_final: &str) -> Result<String, String> {
     let func = match Function::new(&func) {
         Ok(func) => func,
         Err(_) => return Err("Función no válida".to_string()),
@@ -27,19 +27,7 @@ fn calcular(func: &str, x0: &str, y0: &str, h: &str, x_final: &str, derivada: &s
     let euler_result = Metodos::euler(&func, &x0, &y0, &h, &x_final).map_err(|e| e.to_string())?;
     let euler_mejorado_result = Metodos::euler_mejorado(&func, &x0, &y0, &h, &x_final).map_err(|e| e.to_string())?;
     let runge_kutta_result = Metodos::runger_kutta4(&func, &x0, &y0, &h, &x_final).map_err(|e| e.to_string())?;
-    /*let newton_rapson:Option<> = match derivada {
-      Some(derivada) => {},
-      None => None,  
-    };*/
-    /*
-    Ok(
-        CalculationResult {
-            euler: Some(euler_result),
-            euler_mejorado: Some(euler_mejorado_result),
-            runge_kutta: Some(runge_kutta_result),
-        }
-    )
-     */
+
     let mut json = String::new();
     json.push_str("{\"euler\":");
     json.push_str(&euler_result);
@@ -85,7 +73,6 @@ fn calc_newton(func: &str, derivada: &str, x0: &str, err_limit: &str) ->Result<S
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![calcular])
-        .invoke_handler(tauri::generate_handler![calc_newton])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
