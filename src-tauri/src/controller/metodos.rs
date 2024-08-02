@@ -26,6 +26,12 @@ pub struct RK4Result{
     pub k4: f64,
 }
 
+#[derive(Serialize, Deserialize)]
+pub struct NewtonRapsonResult{
+    pub x: f64,
+    pub err: String,
+}
+
 pub struct Metodos{}
 
 impl Metodos {
@@ -102,6 +108,27 @@ impl Metodos {
             },
         };
 
+        println!("{json}");
+        Ok(json)
+    }
+
+    pub fn newton_rapson(func: &Function, deriv: &Function, x0: &f64, err_limit: &f64) -> Result<String, String> {
+        let mut list = LinkedList::new();   
+        let mut x = x0;
+        let mut err = 100.;
+
+        list.push_back(NewtonRapsonResult{x: *x0, err: String::new()});
+
+        let json = match serde_json::to_string(&list)  {
+            Ok(json) => json,
+            Err(_) =>{
+                let mut list = LinkedList::new();
+                list.push_back(NewtonRapsonResult{x: *x0, err: String::new()});
+                serde_json::to_string(&list).unwrap()
+            },
+        };
+
+        println!("{json}");
         Ok(json)
     }
 }

@@ -6,6 +6,7 @@ window.calcularButton.addEventListener('click', async () => {
   const y0 = window.yLbl.value;
   const h = window.hLbl.value;
   const x_final = window.xFLbl.value;
+  const derivada = window.derivInput.value;
 
   if (!func || !x0 || !y0 || !h || !x_final) {
     window.error.textContent = 'Todos los campos son obligatorios.';
@@ -15,7 +16,7 @@ window.calcularButton.addEventListener('click', async () => {
   try {
         //Bug raro que me solicita si o si un atributo xFinal para la funcion que sinceramente
         //no tengo idea de dónde sale, pero si no no jala xd
-    const result = await invoke('calcular', { func, x0, y0, h, x_final, xFinal: x_final });
+    const result = await invoke('calcular', { func, x0, y0, h, x_final, xFinal: x_final, derivada });
     const json = JSON.parse(result);
     
     
@@ -53,28 +54,3 @@ function generateTable(data, headers, title){
   table += `</tbody></table>`;
   return table;
 }
-
-/*
-// Función para generar una tabla a partir de los datos
-function generateTable(data, title) {
-  let tableHtml = `<h3>${title}</h3><table border="1" cellpadding="5" cellspacing="0"><thead><tr>`;
-
-  // Asumimos que todos los objetos tienen las mismas claves
-  const headers = Object.keys(data[0]);
-  headers.forEach(header => {
-    tableHtml += `<th>${header}</th>`;
-  });
-  tableHtml += `</tr></thead><tbody>`;
-
-  data.forEach(item => {
-    tableHtml += `<tr>`;
-    headers.forEach(header => {
-      tableHtml += `<td>${item[header]}</td>`;
-    });
-    tableHtml += `</tr>`;
-  });
-
-  tableHtml += `</tbody></table>`;
-  return tableHtml;
-}
-*/

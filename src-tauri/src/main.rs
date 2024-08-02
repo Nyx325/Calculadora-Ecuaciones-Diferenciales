@@ -13,7 +13,7 @@ pub struct CalculationResult {
 }
 
 #[tauri::command]
-fn calcular(func: &str, x0: &str, y0: &str, h: &str, x_final: &str) -> Result<String, String> {
+fn calcular(func: &str, x0: &str, y0: &str, h: &str, x_final: &str, derivada: &str) -> Result<String, String> {
     let func = match Function::new(&func) {
         Ok(func) => func,
         Err(_) => return Err("Función no válida".to_string()),
@@ -27,7 +27,10 @@ fn calcular(func: &str, x0: &str, y0: &str, h: &str, x_final: &str) -> Result<St
     let euler_result = Metodos::euler(&func, &x0, &y0, &h, &x_final).map_err(|e| e.to_string())?;
     let euler_mejorado_result = Metodos::euler_mejorado(&func, &x0, &y0, &h, &x_final).map_err(|e| e.to_string())?;
     let runge_kutta_result = Metodos::runger_kutta4(&func, &x0, &y0, &h, &x_final).map_err(|e| e.to_string())?;
-
+    /*let newton_rapson:Option<> = match derivada {
+      Some(derivada) => {},
+      None => None,  
+    };*/
     /*
     Ok(
         CalculationResult {
@@ -53,10 +56,36 @@ fn calcular(func: &str, x0: &str, y0: &str, h: &str, x_final: &str) -> Result<St
     Ok(json)
 }
 
+#[tauri::command]
+fn calc_newton(func: &str, derivada: &str, x0: &str, err_limit: &str) ->Result<String,String>{
+    let func = match Function::new(&func) {
+        Ok(func) => func,
+        Err(_) => return Err("Función no válida".to_string()),
+    };
+
+    let derivada = match Function::new(&derivada) {
+        Ok(func) => func,
+        Err(_) => return Err("Función no válida".to_string()),
+    };
+
+    let x0 = x0.parse::<f64>().map_err(|_| "Valor X0 no válido".to_string())?;
+    let err_limit = err_limit.parse::<f64>().map_err(|_| "Valor X0 no válido".to_string())?;
+    let newton_rapson_res:String = Metodos::newton_rapson(&func, &derivada, &x0, &err_limit).map_err(|e| e.to_string())?;
+    
+    println!("a");
+    let mut json = String::new();
+    json.push_str("\"newton_rapson\":");
+    json.push_str(&newton_rapson_res);
+    json.push_str("\n}");
+
+    Ok(json)
+}
+
 #[cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![calcular])
+        .invoke_handler(tauri::generate_handler![calc_newton])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

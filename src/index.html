@@ -1,53 +1,17 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <link rel="stylesheet" href="styles.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tauri App</title>
-  <script type="module" src="/main.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 <body>
-  <main>
-    <form id="calculationForm">
-      <fieldset>
-        <legend>Calculadora ecuaciones diferenciales por aproximaciones</legend>
-        <div class="input-group">
-          <label for="funcLbl">Función:</label>
-          <input type="text" id="funcLbl" name="funcLbl" placeholder="Ej. 2xy" required>
-        </div>
-        <div class="input-group">
-          <label for="xLbl">Valor X:</label>
-          <input type="text" id="xLbl" name="xLbl" placeholder="Ej. 1.5" required>
-        </div>
-        <div class="input-group">
-          <label for="yLbl">Valor Y:</label>
-          <input type="text" id="yLbl" name="yLbl" placeholder="Ej. 2.3" required>
-        </div>
-        <div class="input-group">
-          <label for="hLbl">Valor h:</label>
-          <input type="text" id="hLbl" name="hLbl" placeholder="Ej. 3.0" required>
-        </div>
-        <div class="input-group">
-          <label for="xFLbl">Valor x final:</label>
-          <input type="text" id="xFLbl" name="xFLbl" placeholder="Ej. 3.0" required>
-        </div>
-        <button type="button" id="calcularButton">Calcular</button>
-      </fieldset>
-    </form>
-    <section id="results">
-      <h2>Resultados</h2>
-      <div id="error"></div>
-      <div id="eulerResults">
-        <div id="eulerOutput"></div>
-      </div>
-      <div id="eulerMejoradoResults">
-        <div id="eulerMejoradoOutput"></div>
-      </div>
-      <div id="rungeKuttaResults">
-        <div id="rungeKuttaOutput"></div>
-      </div>
-    </section>
-  </main>
+    <main>
+        <header>
+            <h1>Elije un coso</h1>
+            <a href="./MetodosNumericos.html" id="MetodosNumericosLink" >Metodos numericos</a>
+            <a href="./NewtonRapson.html" id="NewtonRapsonBtn">NewtonRapson</a>
+        </header>
+    </main>
 </body>
 </html>

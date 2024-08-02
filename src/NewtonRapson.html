@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="./NewtonRapson.js" defer></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="./index.html">Volver</a>
+    <main>
+        <form id="calculationForm">
+            <fieldset>
+                <legend>Calculadora ecuaciones diferenciales por aproximaciones</legend>
+                <div class="input-group">
+                    <label for="funcLbl">Función:</label>
+                    <input type="text" id="funcLbl" name="funcLbl" placeholder="Ej. 2*(x+y)" required>
+                </div>
+                <div class="input-group">
+                    <label for="derivInput">Derivada:</label>
+                    <input type="text" id="derivInput" name="derivInput" placeholder="(3x)/3">
+                </div>
+                <div class="input-group">
+                    <label for="xLbl">Valor X:</label>
+                    <input type="text" id="xLbl" name="xLbl" placeholder="Ej. 1.5" required>
+                </div>
+                <div class="input-group">
+                    <label for="errLimitInput">Error:</label>
+                    <input type="text" id="errLimitInput" name="errLimitInput" placeholder="Ej. 1" required>
+                    <label>%</label>
+                </div>
+                <button type="button" id="calcularButton">Calcular</button>
+            </fieldset>
+        </form>
+        <section id="results">
+            <h2>Resultado</h2>
+            <div id="error"></div>
+            <div id="newtonResults">
+                <div id="newtonOutput"></div>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

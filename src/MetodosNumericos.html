@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tauri App</title>
+  <script type="module" src="/MetodosNumericos.js" defer></script>
+</head>
+<body>
+  <a href="./index.html">Volver</a>
+  <main>
+    <form id="calculationForm">
+      <fieldset>
+        <legend>Calculadora ecuaciones diferenciales por aproximaciones</legend>
+        <div class="input-group">
+          <label for="funcLbl">Función:</label>
+          <input type="text" id="funcLbl" name="funcLbl" placeholder="Ej. 2*(x+y)" required>
+        </div>
+        <div class="input-group">
+          <label for="xLbl">Valor X:</label>
+          <input type="text" id="xLbl" name="xLbl" placeholder="Ej. 1.5" required>
+        </div>
+        <div class="input-group">
+          <label for="yLbl">Valor Y:</label>
+          <input type="text" id="yLbl" name="yLbl" placeholder="Ej. 2.3" required>
+        </div>
+        <div class="input-group">
+          <label for="hLbl">Valor h:</label>
+          <input type="text" id="hLbl" name="hLbl" placeholder="Ej. 3.0" required>
+        </div>
+        <div class="input-group">
+          <label for="xFLbl">Valor x final:</label>
+          <input type="text" id="xFLbl" name="xFLbl" placeholder="Ej. 3.0" required>
+        </div>
+        <div class="input-group">
+          <label for="derivInput">Derivada:</label>
+          <input type="text" id="derivInput" name="derivInput" placeholder="(3x)/3">
+        </div>
+        <button type="button" id="calcularButton">Calcular</button>
+      </fieldset>
+    </form>
+    <section id="results">
+      <h2>Resultados</h2>
+      <div id="error"></div>
+      <div id="eulerResults">
+        <div id="eulerOutput"></div>
+      </div>
+      <div id="eulerMejoradoResults">
+        <div id="eulerMejoradoOutput"></div>
+      </div>
+      <div id="rungeKuttaResults">
+        <div id="rungeKuttaOutput"></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
