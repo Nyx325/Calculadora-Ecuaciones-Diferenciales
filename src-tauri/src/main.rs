@@ -1,3 +1,6 @@
+// Prevents additional console window on Windows in release, DO NOT REMOVE!!
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+
 use std::collections::LinkedList;
 
 use controller::{function::Function, metodos::{Metodos, EulerResult, EulerMejoradoResult, RK4Result}};
@@ -69,7 +72,6 @@ fn calc_newton(func: &str, derivada: &str, x0: &str, err_limit: &str) ->Result<S
     Ok(json)
 }
 
-#[cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![calcular])

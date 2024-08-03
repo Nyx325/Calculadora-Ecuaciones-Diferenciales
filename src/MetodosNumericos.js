@@ -6,7 +6,6 @@ window.calcularButton.addEventListener('click', async () => {
   const y0 = window.yLbl.value;
   const h = window.hLbl.value;
   const x_final = window.xFLbl.value;
-  const derivada = window.derivInput.value;
 
   if (!func || !x0 || !y0 || !h || !x_final) {
     window.error.textContent = 'Todos los campos son obligatorios.';
